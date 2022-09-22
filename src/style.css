@@ -8,7 +8,7 @@
 
 .topo {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 /* esquerda do topo */
@@ -30,7 +30,11 @@ img {
     height: 420px;
 
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding-top: 30px;
+    padding-bottom: 40px;
 } 
 
 .escolher {
@@ -43,7 +47,15 @@ img {
     color: white;
     font-weight: 700;
 
-    margin-top: 45px;
+    margin: auto;
+}
+
+.palavra {
+    font-size: 50px;
+    font-weight: 700;
+
+    margin: auto;
+    display: block;
 }
 
 /* teclado */

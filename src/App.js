@@ -13,55 +13,64 @@ export default function App () {
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     const forca = [forca0,forca1,forca2,forca3,forca4,forca5,forca6]
     
-   let [erro,setErro] = react.useState(0)
-   let [cod,setCod] = react.useState()
-   let [input,setInput] = react.useState(true)
-//    let [funcao,setFuncao] = react.useState()
-   let [cor, setCor] = react.useState("palavra")
-    let palavra,carac;
-    let chave = []
+   let [erro,setErro] = react.useState(0) //conta o num de erros
+   let [cor, setCor] = react.useState("palavra") // define o estilo da palavra
+   let [carac,setCarac] = react.useState([]) // guarda a resposta em array
+   let [input,setInput] = react.useState(true) //habilita o input
+   let [iniciado,setIniciado] = react.useState(false) //habilita letras e desabilita iniciar
+   let [usadas,setUsadas] = react.useState([]) //guarda letras usadas
+   let [chave, setChave] = react.useState([]) //renderizado ao logo do jogo
+
 
 
     function Letra (props) {
         return (
-            <button onClick={()=>{tentativa(props.funcao)}} className="letra">{props.letra}</button>
+            <button onClick={()=>{tentativa(props.funcao)}} className={usadas.includes(props.funcao)? "letra usada" : "letra"}>{props.letra}</button>
         )
     }
 
     function iniciar () {
+        if (iniciado) {return}
         let index
         do { index = Math.floor(Math.random()*1000) } while (index > 231)
-        palavra = palavras[index]
+        let palavra = palavras[index]
         carac = palavra.split("")
+        setCarac(carac)
         console.log(palavra, carac)
         
         for (let i = 1; i<=carac.length; i++) {chave.push("_ ")}
 
+        setChave(chave)
         setInput(false)
-        setCod(chave)
+        setIniciado(true)
     }
     
-    // function perdeu () {
+    function perdeu () {
     //     if (erro===6) {
     //         for (let i = 1; i<=carac.length; i++) {chave.push(carac[i]+" ")}
     //         setCod(chave)
     //         setCor("palavra vermelho")
     //     }
-    // }
+    }
 
     function tentativa (letra) {
-        console.log(letra)
-    //     for (let i=0; i<carac.length; i++) {
-    //         if (letra === carac[i]) {acertos.push(i)}
-    //     }
+       if(!iniciado){return}
 
-    //     if(acertos.length===0) {setErro(erro+1); perdeu(); return}
+       if(usadas.includes(letra)) {return}
 
-    //     acertos.forEach((i) => {
-    //         chave[i] = letra.toUpperCase() + " "
-    //     })
-    //     console.log(chave)
-    //     setCod(chave)
+       let u = [...usadas,letra]
+       setUsadas(u)
+       console.log(usadas)
+    
+       let newChave = chave
+       if (carac.includes(letra)) {
+        for (let i = 0; i<carac.length; i++) {
+            if (letra===carac[i]) {newChave[i] = letra.toUpperCase()}
+        }
+        setChave(newChave)
+        return
+       }
+       else {setErro(erro+1)}
     }
 
     return (
@@ -70,7 +79,7 @@ export default function App () {
                 <div className="image"> <img src={forca[erro]} alt="imagem forca"/> </div>
                 <div className="direita"> 
                     <button className="escolher" onClick={iniciar} >Escolher Palavra</button>
-                    <div className={cor}>{cod}</div>
+                    <div className={cor}>{chave}</div>
                 </div>
             </div>
 

@@ -77,9 +77,11 @@ img {
     border-radius: 5px;
 
     font-weight: 700;
-    color: #80878E;
+    color: #FFFFFF;
 }
-
+.usada {
+    background-color: #527B9E;
+}
 /* parte de baixo */
 .container {
     width: 520px;

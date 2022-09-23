@@ -20,8 +20,11 @@ export default function App () {
    let [iniciado,setIniciado] = react.useState(false) //habilita letras e desabilita iniciar
    let [usadas,setUsadas] = react.useState([]) //guarda letras usadas
    let [chave, setChave] = react.useState([]) //renderizado ao logo do jogo
-
-
+   let [botao,setBotao] = react.useState("Escolher palavra") //texto do batão canto superior
+   let [palavra, setPalavra] = react.useState("") //palvra resposta
+   let [chute, setChute] =react.useState("") //pega o chute do input
+    let [boa, setBoa] = react.useState("")
+   
 
     function Letra (props) {
         return (
@@ -30,47 +33,86 @@ export default function App () {
     }
 
     function iniciar () {
-        if (iniciado) {return}
+        setBotao("Mudar a palavra")
+        setErro(0)
+        setCor("palavra")
+        setInput(false)
+        let novaUsadas = []
+        setUsadas(novaUsadas)
+
         let index
         do { index = Math.floor(Math.random()*1000) } while (index > 231)
-        let palavra = palavras[index]
+        palavra = palavras[index]
+        setPalavra(palavra)
         carac = palavra.split("")
         setCarac(carac)
         console.log(palavra, carac)
         
-        for (let i = 1; i<=carac.length; i++) {chave.push("_ ")}
-
-        setChave(chave)
-        setInput(false)
+        let newChave = [];
+        for (let i = 0; i<carac.length; i++) {newChave.push("_ ")}
+        setChave(newChave)
         setIniciado(true)
     }
     
     function perdeu () {
-    //     if (erro===6) {
-    //         for (let i = 1; i<=carac.length; i++) {chave.push(carac[i]+" ")}
-    //         setCod(chave)
-    //         setCor("palavra vermelho")
-    //     }
+        if (erro===5 || boa==="false") {
+            setChave(carac)
+            setCor("palavra vermelho")
+            setIniciado(false)
+            setInput(true)
+            setBotao("Começar")
+        }
+    }
+
+    function ganhou () {
+        if (!chave.includes("_ ")|| boa==="true") {
+            setChave(carac)
+            setCor("palavra verde")
+            setIniciado(false)
+            setInput(true)
+            setBotao("Começar")
+        }
     }
 
     function tentativa (letra) {
-       if(!iniciado){return}
-
+    
+        if (!iniciado) {return}
        if(usadas.includes(letra)) {return}
 
        let u = [...usadas,letra]
        setUsadas(u)
        console.log(usadas)
+
+       let testar = []
+       if (letra === "a") {testar=["a","á","â","ã"]}
+        else if (letra === "c") {testar=["c","ç"]}
+        else {testar = [letra]}
     
-       let newChave = chave
+
+
+       let newChave;
+       newChave = chave
        if (carac.includes(letra)) {
         for (let i = 0; i<carac.length; i++) {
-            if (letra===carac[i]) {newChave[i] = letra.toUpperCase()}
+            testar.forEach((a) => { if (a === carac[i]) {newChave[i] = a} } )
         }
         setChave(newChave)
+        ganhou()
         return
        }
-       else {setErro(erro+1)}
+
+       else {
+            setErro(erro+1)
+            perdeu()
+        }
+    }
+
+    function chutar () {
+         chute = chute.toLowerCase()
+         if(chute===palavra) {setBoa("true")
+        ganhou()}
+         else {setBoa("false")
+        perdeu()}
     }
 
     return (
@@ -78,7 +120,7 @@ export default function App () {
              <div className="topo">
                 <div className="image"> <img src={forca[erro]} alt="imagem forca"/> </div>
                 <div className="direita"> 
-                    <button className="escolher" onClick={iniciar} >Escolher Palavra</button>
+                    <button className="escolher" onClick={iniciar} >{botao}</button>
                     <div className={cor}>{chave}</div>
                 </div>
             </div>
@@ -89,8 +131,8 @@ export default function App () {
 
             <div className="container">
                 <p>Já sei a palavra!</p>
-                <input disabled={input}/> 
-                <button className="chutar">Chutar</button>
+                <input disabled={input} onChange={(e) => setChute(e.target.value)} value={chute}/> 
+                <button className="chutar" onClick={chutar}>Chutar</button>
             </div>
         </>
     )

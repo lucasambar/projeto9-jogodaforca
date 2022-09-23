@@ -57,7 +57,12 @@ img {
     margin: auto;
     display: block;
 }
-
+.vermelho{
+    color: red
+}
+.verde {
+    color: rgb(83, 219, 83)
+}
 /* teclado */
 .teclado{
     width: 580px;

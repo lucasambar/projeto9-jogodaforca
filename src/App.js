@@ -37,6 +37,8 @@ export default function App () {
         setErro(0)
         setCor("palavra")
         setInput(false)
+        setChute("")
+        
         let novaUsadas = []
         setUsadas(novaUsadas)
 

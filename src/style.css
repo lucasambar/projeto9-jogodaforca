@@ -6,119 +6,16 @@
     background-color: #FFFFFF;
 }
 
-.topo {
-    display: flex;
-    justify-content: space-between;
-}
-
-/* esquerda do topo */
-.image {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-}
-
-img {
-    height: 370px;
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
-
-/* direita do topo */
-.direita {
-    width: 50%;
-    height: 420px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    padding-top: 30px;
-    padding-bottom: 40px;
-} 
-
-.escolher {
-    height: 30px;
-    width: 150px;
-    background-color: #46A471;
-    border: none;
-    border-radius: 10px;
-
-    color: white;
-    font-weight: 700;
-
-    margin: auto;
-}
-
-.palavra {
-    font-size: 50px;
-    font-weight: 700;
-
-    margin: auto;
-    display: block;
-}
+/* direita do top*/
 .vermelho{
     color: red
 }
 .verde {
     color: rgb(83, 219, 83)
 }
-/* teclado */
-.teclado{
-    width: 580px;
 
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-
-    margin: auto;
-    margin-bottom: 30px;
-}
-.letra {
-    height: 37px;
-    width: 37px;
-    background-color: #9FAAB5;
-    border: none;
-    border-radius: 5px;
-
-    font-weight: 700;
-    color: #FFFFFF;
-}
 .usada {
     background-color: #527B9E;
 }
-/* parte de baixo */
-.container {
-    width: 520px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin: auto;
-}
-.chutar {
-    width: 60px;
-    height: 30px;
-    background-color: #E1ECF4;
-    border-color: #527B9E;
-    border-width: 2.5px;
-    border-radius: 5px;
-
-    color: #527B9E;
-    font-weight: 700;
-}
-
-input{
-    width: 300px;
-    height: 30px;
-    border-radius: 5px;
-    border-color: #B8B8B8;
-
-
-}
-
-p{
-    font-size: 20px;
-}
 
